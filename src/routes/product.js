@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
   const product = req.body;
   try {
     const newProduct = await Product.createProduct(product);
+    console.log(newProduct)
     res.status(201).json(newProduct);
   } catch (error) {
     console.error('Error al crear producto:', error);

@@ -1,0 +1,1 @@
+ALTER TABLE products ADD COLUMN state VARCHAR(255);
