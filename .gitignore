@@ -5,7 +5,6 @@ yarn-error.log
 .env
 
 # Dependencias de desarrollo
-*.test.js
 *.spec.js
 coverage/
 
