@@ -13,6 +13,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Obtener un usuario por ID
+router.get('/:userId', async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const user = await User.getUserById(userId);
+    res.json(user);
+  } catch (error) {
+    console.error('Error al obtener usuario por ID:', error);
+    res.status(500).json({ error: 'Error al obtener usuario por ID' });
+  }
+});
+
 // Crear un nuevo usuario
 router.post('/', async (req, res) => {
   const userData = req.body;

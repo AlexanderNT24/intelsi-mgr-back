@@ -14,6 +14,18 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Obtener todas las solicitudes de un supervisor por ID
+router.get('/supervisor/:supervisorId', async (req, res) => {
+  const supervisorId = req.params.supervisorId;
+  try {
+    const supervisorRequests = await Request.getRequestsBySupervisor(supervisorId);
+    res.json(supervisorRequests);
+  } catch (error) {
+    console.error('Error al obtener solicitudes del supervisor:', error);
+    res.status(500).json({ error: 'Error al obtener solicitudes del supervisor' });
+  }
+});
+
 // Crear una nueva solicitud
 router.post('/', async (req, res) => {
   const requestData = req.body;
@@ -31,7 +43,7 @@ router.put('/:requestId', async (req, res) => {
   const requestId = req.params.requestId;
   const updatedRequestData = req.body;
   try {
-    const updatedRequest = await Request.updateRequest( requestId, updatedRequestData);
+    const updatedRequest = await Request.updateRequest(requestId, updatedRequestData);
     res.json(updatedRequest);
   } catch (error) {
     console.error('Error al actualizar solicitud:', error);
@@ -43,7 +55,7 @@ router.put('/:requestId', async (req, res) => {
 router.delete('/:requestId', async (req, res) => {
   const requestId = req.params.requestId;
   try {
-    await Request.deleteRequest( requestId);
+    await Request.deleteRequest(requestId);
     res.json({ message: 'Solicitud eliminada exitosamente' });
   } catch (error) {
     console.error('Error al eliminar solicitud:', error);

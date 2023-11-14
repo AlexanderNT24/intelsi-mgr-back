@@ -7,6 +7,13 @@ class User {
     return rows;
   }
 
+  static async getUserById(userId) {
+    const query = 'SELECT * FROM user_intelsi WHERE id = $1';
+    const values = [userId];
+    const { rows } = await pool.query(query, values);
+    return rows[0];
+  }
+
   static async createUser(user) {
     const { name, first_name, last_name, email, password, enabled, rol } = user; 
     const query = 'INSERT INTO user_intelsi (name, first_name, last_name, email, password, enabled, rol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *'; 

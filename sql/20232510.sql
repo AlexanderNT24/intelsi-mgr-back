@@ -11,10 +11,13 @@ CREATE TABLE request (
     dateShipment DATE NOT NULL,
     requestStatus VARCHAR(255) NOT NULL,
     price NUMERIC(10, 2) NOT NULL,
-    idProducto INT NOT NULL
+    idProducto INT NOT NULL,
+    supervisorStatus VARCHAR(255), -- Puedes ajustar el tipo de datos según tus necesidades
+    supervisor_id INT, -- Este es un ejemplo, asegúrate de que sea el tipo de dato correcto
     
+    -- Agrega una clave foránea para relacionar con la tabla de supervisores (si es necesario)
+    FOREIGN KEY (supervisor_id) REFERENCES user_intelsi(id)
 );
-
 
 CREATE TABLE user_intelsi (
     id SERIAL PRIMARY KEY,
