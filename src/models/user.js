@@ -9,16 +9,16 @@ class User {
 
   static async createUser(user) {
     const { name, first_name, last_name, email, password, enabled, rol } = user; 
-    const query = 'INSERT INTO user_intelsi (name, first_name, last_name, email, password, enabled, rol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *'; // Cambiamos 'roles' por 'rol'
-    const values = [name, first_name, last_name, email, password, enabled, rol]; // Cambiamos 'roles' por 'rol'
+    const query = 'INSERT INTO user_intelsi (name, first_name, last_name, email, password, enabled, rol) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *'; 
+    const values = [name, first_name, last_name, email, password, enabled, rol]; 
     const { rows } = await pool.query(query, values);
     return rows[0];
   }
 
   static async updateUser(user) {
-    const { user_id, name, first_name, last_name, email, password, enabled, rol } = user; // Cambiamos 'roles' por 'rol'
+    const { user_id, name, first_name, last_name, email, password, enabled, rol } = user; 
     const query = 'UPDATE user_intelsi SET name = $2, first_name = $3, last_name = $4, email = $5, password = $6, enabled = $7, rol = $8 WHERE id = $1 RETURNING *'; // Cambiamos 'roles' por 'rol'
-    const values = [user_id, name, first_name, last_name, email, password, enabled, rol]; // Cambiamos 'roles' por 'rol'
+    const values = [user_id, name, first_name, last_name, email, password, enabled, rol]; 
     const { rows } = await pool.query(query, values);
     return rows[0];
   }

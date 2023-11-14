@@ -26,7 +26,7 @@ class Request {
     const query = 'DELETE FROM request WHERE request_id = $1';
     const values = [request_id];
     await pool.query(query, values);
-    return true; // Puedes devolver un valor booleano u otra información según tus necesidades
+    return true; 
   }
 }
 

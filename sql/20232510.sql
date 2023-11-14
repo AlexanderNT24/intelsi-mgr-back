@@ -12,7 +12,7 @@ CREATE TABLE request (
     requestStatus VARCHAR(255) NOT NULL,
     price NUMERIC(10, 2) NOT NULL,
     idProducto INT NOT NULL
-    -- Otras columnas que puedas necesitar
+    
 );
 
 
