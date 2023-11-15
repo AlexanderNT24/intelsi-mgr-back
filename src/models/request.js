@@ -16,16 +16,30 @@ class Request {
   }
 
   static async getRequestsBySupervisor(supervisor_id) {
-    const query = 'SELECT * FROM request WHERE supervisor_id = $1';
+    const query = `
+      SELECT request.*, products.*
+      FROM request
+      JOIN products ON request.idproducto = products.product_id
+      WHERE request.supervisor_id = $1;
+    `;
     const values = [supervisor_id];
     const { rows } = await pool.query(query, values);
     return rows;
   }
+  
+  
 
   static async updateRequest(request) {
     const { request_id, dateRequest, dateShipment, requestStatus, price, idProducto, supervisorStatus, supervisor_id } = request;
     const query = 'UPDATE request SET dateRequest = $2, dateShipment = $3, requestStatus = $4, price = $5, idProducto = $6, supervisorStatus = $7, supervisor_id = $8 WHERE id = $1 RETURNING *';
     const values = [request_id, dateRequest, dateShipment, requestStatus, price, idProducto, supervisorStatus, supervisor_id];
+    const { rows } = await pool.query(query, values);
+    return rows[0];
+  }
+
+  static async updateRequestStatus(requestId, requestName) { // Cambia 'requestStatus' a 'requestName'
+    const query = 'UPDATE request SET requestStatus = $2 WHERE id = $1 RETURNING *'; // Cambia 'requestStatus' a 'requestName'
+    const values = [requestId, requestName]; // Cambia 'requestStatus' a 'requestName'
     const { rows } = await pool.query(query, values);
     return rows[0];
   }
@@ -36,6 +50,7 @@ class Request {
     await pool.query(query, values);
     return true; 
   }
+  
 }
 
 module.exports = Request;
